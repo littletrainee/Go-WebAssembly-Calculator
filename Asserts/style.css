@@ -1,0 +1,36 @@
+.ResultLabel {
+    height: 40px;
+    width: 150px;
+    background-color: white;
+    padding: 0px 10px;
+    outline-offset: 4px;
+    border: 2px;
+    border-radius: 10px;
+    border-style: dotted;
+    text-align: right;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.zero {
+    height: 40px;
+    width: 85px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.notzero {
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.arithmetic {
+    background-color: rgb(249, 164, 68);
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+}

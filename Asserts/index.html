@@ -1,0 +1,38 @@
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="style.css">
+	<script src="wasm_exec.js"></script>
+	<script src="script.js"></script>
+</head>
+
+<body>
+	<label id="Result" class="ResultLabel">0</label>
+	<br />
+	<button onclick="Clear()" class="notzero">C</button>
+	<button onclick="PostiveOrNegativeAndPercent('+/-')" class="notzero">+/-</button>
+	<button onclick="PostiveOrNegativeAndPercent('%')" class="notzero">%</button>
+	<button onclick="Arithmetic('/')" class="arithmetic">/</button>
+	<br />
+	<button onclick="Print(7)" class="notzero">7</button>
+	<button onclick="Print(8)" class="notzero">8</button>
+	<button onclick="Print(9)" class="notzero">9</button>
+	<button onclick="Arithmetic('*')" class="arithmetic">*</button>
+	<br />
+	<button onclick="Print(4)" class="notzero">4</button>
+	<button onclick="Print(5)" class="notzero">5</button>
+	<button onclick="Print(6)" class="notzero">6</button>
+	<button onclick="Arithmetic('-')" class="arithmetic">-</button>
+	<br />
+	<button onclick="Print(1)" class="notzero">1</button>
+	<button onclick="Print(2)" class="notzero">2</button>
+	<button onclick="Print(3)" class="notzero">3</button>
+	<button onclick="Arithmetic('+')" class="arithmetic">+</button>
+	<br />
+	<button onclick="Print(0)" class="zero">0</button>
+	<button onclick="Print('.')" class="notzero">.</button>
+	<button onclick="Equal()" class="arithmetic">=</button>
+</body>
+
+</html>
