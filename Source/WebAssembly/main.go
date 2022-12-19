@@ -37,6 +37,7 @@ func Print(_ js.Value, values []js.Value) any {
 			Label = ""
 			setanother = false
 		}
+		// check user has set point to float
 		if point {
 			if Label == "" {
 				Label = "0"
@@ -54,6 +55,7 @@ func Print(_ js.Value, values []js.Value) any {
 	return nil
 }
 
+// Set Calculator Sign.
 func Arithmetic(_ js.Value, values []js.Value) any {
 	var result string
 	arithmetic = values[0].String()
@@ -66,15 +68,16 @@ func Arithmetic(_ js.Value, values []js.Value) any {
 		result = calculate(first, second)
 		if result == "DZ" {
 			result = "Can't Divide by 0"
-			js.Global().Get("document").Call("getElementById", "Result").Set("innerHTML", result)
 		} else {
 			first = StringToFloat.GetFloat64(result)
 		}
+		js.Global().Get("document").Call("getElementById", "Result").Set("innerHTML", result)
 	}
 	setanother = true
 	return nil
 }
 
+// Calculate user input value and return result
 func calculate(first, second float64) string {
 	switch arithmetic {
 	case "+":
@@ -82,11 +85,7 @@ func calculate(first, second float64) string {
 	case "-":
 		return strconv.FormatFloat(first-second, 'f', -1, 64)
 	case "*":
-		if first == 0 {
-			return strconv.FormatFloat(1*second, 'f', -1, 64)
-		} else {
-			return strconv.FormatFloat(first*second, 'f', -1, 64)
-		}
+		return strconv.FormatFloat(first*second, 'f', -1, 64)
 	case "/":
 		if second == 0 {
 			return "DZ"
@@ -98,6 +97,7 @@ func calculate(first, second float64) string {
 	}
 }
 
+// Print Calculate result to Result Label
 func Equal(_ js.Value, values []js.Value) any {
 	second = StringToFloat.GetFloat64(js.Global().Get("document").Call("getElementById", "Result").Get("innerHTML").String())
 	var result string = ""
@@ -112,6 +112,7 @@ func Equal(_ js.Value, values []js.Value) any {
 	return nil
 }
 
+// Reset All value.
 func Clear(_ js.Value, values []js.Value) any {
 	first = 0
 	second = 0
@@ -123,16 +124,18 @@ func Clear(_ js.Value, values []js.Value) any {
 	return nil
 }
 
-func PostiveOrNegativeAndPercent(_ js.Value, values []js.Value) any {
-	var (
-		value  string  = values[0].String()
-		Result float64 = StringToFloat.GetFloat64(js.Global().Get("document").Call("getElementById", "Result").Get("innerHTML").String())
-	)
-	if value == "+/-" {
-		Result *= -1
-	} else if value == "%" {
-		Result /= 100
-	}
+// add Negative Sign Or Not.
+func NegativSign(_ js.Value, values []js.Value) any {
+	var Result float64 = StringToFloat.GetFloat64(js.Global().Get("document").Call("getElementById", "Result").Get("innerHTML").String())
+	Result *= -1
+	js.Global().Get("document").Call("getElementById", "Result").Set("innerHTML", strconv.FormatFloat(Result, 'f', -1, 64))
+	return nil
+}
+
+// Convert Value to Percentage.
+func ConvertPercentage(_ js.Value, values []js.Value) any {
+	var Result float64 = StringToFloat.GetFloat64(js.Global().Get("document").Call("getElementById", "Result").Get("innerHTML").String())
+	Result /= 100
 	js.Global().Get("document").Call("getElementById", "Result").Set("innerHTML", strconv.FormatFloat(Result, 'f', -1, 64))
 	return nil
 }
@@ -143,6 +146,7 @@ func main() {
 	js.Global().Set("Arithmetic", js.FuncOf(Arithmetic))
 	js.Global().Set("Equal", js.FuncOf(Equal))
 	js.Global().Set("Clear", js.FuncOf(Clear))
-	js.Global().Set("PostiveOrNegativeAndPercent", js.FuncOf(PostiveOrNegativeAndPercent))
+	js.Global().Set("NegativeSign", js.FuncOf(NegativSign))
+	js.Global().Set("ConvertPercentage", js.FuncOf(ConvertPercentage))
 	<-make(chan any)
 }
